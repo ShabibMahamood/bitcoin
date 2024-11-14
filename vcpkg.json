@@ -1,28 +1,36 @@
 {
   "$comment": "The builtin-baseline corresponds to 2024.09.30 Release",
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  
+  // Baseline configuration for package management
   "builtin-baseline": "c82f74667287d3dc386bce81e44964370c91a289",
+
+  // Primary dependencies required for the project
   "dependencies": [
     "boost-date-time",
     "boost-multi-index",
     "boost-signals2",
     "libevent"
   ],
+
+  // Default features for a standard build
   "default-features": [
-    "qt5",
-    "tests",
-    "wallet",
-    "zeromq"
+    "qt5",      // GUI support via Qt5
+    "tests",    // Include test suite
+    "wallet",   // Wallet functionality
+    "zeromq"    // ZMQ for notifications
   ],
+
+  // Additional configurable features with detailed dependencies
   "features": {
     "berkeleydb": {
-      "description": "Enable Berkeley DB wallet support",
+      "description": "Support for Berkeley DB wallet",
       "dependencies": [
         "berkeleydb"
       ]
     },
     "qt5": {
-      "description": "Build GUI, Qt 5",
+      "description": "Enable Qt5 GUI",
       "dependencies": [
         "qt5-base",
         "qt5-tools",
@@ -30,34 +38,36 @@
       ]
     },
     "sqlite": {
-      "description": "Enable SQLite wallet support",
+      "description": "Support for SQLite wallet",
       "dependencies": [
         "sqlite3"
       ]
     },
     "tests": {
-      "description": "Build test_bitcoin.exe executable",
+      "description": "Include test executable",
       "dependencies": [
         "boost-test"
       ]
     },
     "wallet": {
-      "description": "Enable wallet",
+      "description": "Include wallet functionality",
       "dependencies": [
         "berkeleydb",
         "sqlite3"
       ]
     },
     "zeromq": {
-      "description": "Enable ZMQ notifications",
+      "description": "Support for ZMQ notifications",
       "dependencies": [
         "zeromq"
       ]
     }
   },
+
+  // Override specific package versions for compatibility
   "overrides": [
     {
-      "$comment": "Newer unreleased libevent versions cause https://github.com/bitcoin/bitcoin/issues/30096",
+      "$comment": "Pin libevent to version 2.1.12#7 to avoid issue #30096 in Bitcoin repository",
       "name": "libevent",
       "version": "2.1.12#7"
     }
